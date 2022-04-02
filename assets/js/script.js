@@ -26,10 +26,30 @@ const history = document.getElementById("history");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
 
-function getWeather(cityName) {
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIkey;
-    axios.get(queryURL)
-    .then(function(response){
-        console.log(response);
-})
+var APIKey="a0aca8a89948154a4182dcecc780b513";
+//display weather 
+function displayWeather(event){
+    event.preventDefault();
+    if(searchCity.val().trim()!==""){
+        city=searchCity.val().trim();
+        currentWeather(city);
+    }
 }
+// Here we create the AJAX call
+function currentWeather(city){
+    // Here we build the URL so we can get a data from server side.
+    var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey;
+    $.ajax({
+        url:queryURL,
+        method:"GET",
+    }).then(function(response){
+        console.log (response);
+    })
+}
+
+$(document).ready(function () {
+    var todayDate = moment().format('dddd, MMM Do YYYY');
+    let displayDate = document.getElementById("currentDay");
+    displayDate.innerHTML = todayDate;
+})
+    

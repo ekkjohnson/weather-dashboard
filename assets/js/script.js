@@ -17,7 +17,7 @@ var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeather = document.getElementById("currentContainer")
 var forecast = document.getElementById("forecastContainer")
-var currentDate = moment().format("dddd, MMMM Do YYYY");
+
 var Icon = document.getElementById("icon");
 var currentTemp = document.getElementById("temp");
 var currentHumidity = document.getElementById("humidity"); 4
@@ -62,3 +62,13 @@ var getcurrentWeather = function(city){
         });
     });
 };
+var displayWeather=function(weather, citySearch){
+    currentWeather.textContent="";
+    cityInput.textContent=citySearch;
+    // console.log(weather);
+
+}
+
+var currentDay=document.createElement("span")
+currentDay.textContent="("+ moment(weather.dt.value).format ("MMM D, YYYY") + ") ";
+citySearch.appendChild(currentDay);

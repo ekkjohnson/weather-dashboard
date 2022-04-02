@@ -17,12 +17,6 @@ var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeather = document.getElementById("currentContainer")
 var forecast = document.getElementById("forecastContainer")
-
-var Icon = document.getElementById("icon");
-var currentTemp = document.getElementById("temp");
-var currentHumidity = document.getElementById("humidity"); 4
-var currentWind = document.getElementById("windSpeed");
-var currentUV = document.getElementById("UV");
 var history = document.getElementById("history");
 var apiKey = "844421298d794574c100e3409cee0499"
 var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
@@ -72,3 +66,24 @@ var displayWeather=function(weather, citySearch){
 var currentDay=document.createElement("span")
 currentDay.textContent="("+ moment(weather.dt.value).format ("MMM D, YYYY") + ") ";
 citySearch.appendChild(currentDay);
+
+function currentForecast() {
+    removeAllChildNodes(currentWeather);
+    removeAllChildNodes(forecast)
+    var iconUrl = `http://openweathermap.org/img/wn/${forecast[0].weather[0].icon}@2x.png`;
+    var Icon;
+    fetch(iconUrl).then(function (res) {
+      Icon = res.url;
+      return Icon;
+    });
+    var card = document.createElement("div");
+    currentContainer.appendChild(card);
+    card.setAttribute("class", "currentWeatherCard");
+    var city = document.createElement("h2");
+    var date = document.createElement("h2");
+    var icon = document.createElement("img");
+    var temp = document.createElement("h2");
+    var wind = document.createElement("h2");
+    var humidity = document.createElement("h2");
+    var UV= document.createElement("h2");
+}

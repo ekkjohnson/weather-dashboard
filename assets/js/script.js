@@ -49,6 +49,7 @@ function currentWeather(city){
 
 $(document).ready(function () {
     var todayDate = moment().format('dddd, MMM Do YYYY');
+    console.log(todayDate);
     let displayDate = document.getElementById("currentDay");
     displayDate.innerHTML = todayDate;
 })

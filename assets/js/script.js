@@ -10,7 +10,7 @@
 //search history
 
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-var APIKey = "1802fd1963a6abd30ad1c8984516bc38";
+const APIkey = "c9a9ed03a355403f4cb9a36e931c0b4a";
 var city;
 var lonLat = []
 var cityInput = document.getElementById("cityInput");
@@ -27,5 +27,9 @@ let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
 
 function getWeather(cityName) {
-
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIkey;
+    axios.get(queryURL)
+    .then(function(response){
+        console.log(response);
+})
 }

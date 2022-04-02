@@ -15,42 +15,50 @@ var city;
 var lonLat = []
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
-var current = document.getElementById("currentContainer")
+var currentWeather = document.getElementById("currentContainer")
 var forecast = document.getElementById("forecastContainer")
-const Icon = document.getElementById("icon");
-const currentTemp = document.getElementById("temp");
-const currentHumidity = document.getElementById("humidity"); 4
-const currentWind = document.getElementById("windSpeed");
-const currentUV = document.getElementById("UV");
-const history = document.getElementById("history");
+var currentDate = moment().format("dddd, MMMM Do YYYY");
+var Icon = document.getElementById("icon");
+var currentTemp = document.getElementById("temp");
+var currentHumidity = document.getElementById("humidity"); 4
+var currentWind = document.getElementById("windSpeed");
+var currentUV = document.getElementById("UV");
+var history = document.getElementById("history");
+var apiKey = "844421298d794574c100e3409cee0499"
+var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
 
-var APIKey="a0aca8a89948154a4182dcecc780b513";
+
 //display weather 
-function displayWeather(event){
+
+//call
+var formSumbit= function(event){
     event.preventDefault();
-    if(searchCity.val().trim()!==""){
-        city=searchCity.val().trim();
-        currentWeather(city);
+    var city = cityInput.value.trim();
+    if(city){
+        getcurrentWeather(city);
+        getforecast(city);
+        cities.unshift({city});
+        cityInput.value = "";
+    } else{
+        alert("Please enter a City");
     }
-}
-// Here we create the AJAX call
-function currentWeather(city){
-    // Here we build the URL so we can get a data from server side.
-    var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey;
-    $.ajax({
-        url:queryURL,
-        method:"GET",
-    }).then(function(response){
-        console.log (response);
-    })
+    saveSearch();
+    pastSearch(city);
 }
 
-$(document).ready(function () {
-    var todayDate = moment().format('dddd, MMM Do YYYY');
-    console.log(todayDate);
-    let displayDate = document.getElementById("currentDay");
-    displayDate.innerHTML = todayDate;
-})
+var saveSearch = function(){
+    localStorage.setItem("cities", JSON.stringify(cities));
+};
+
+var getcurrentWeather = function(city){
     
+
+    fetch(apiURL)
+    .then(function(response){
+        response.json().then(function(data){
+            displayWeather(data, city);
+        });
+    });
+};

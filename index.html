@@ -1,53 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
-    <link rel="stylesheet" href="./assets/css/style.css"/>
-    <link rel="stylesheet" href="./assets/css/jass.css"/>
 
-    <title>Weather Dashboard</title>
-  </head>
-  <nav>Weather Dashboard</nav>
-  <body>
-    <main>
-      <div class="search-menu" id="search-menu"></div>
-        <h2 class="search">Search For a City:</h2>
-        <form class="searchBtn" action="action_page.php">
-            <input type="text" id="cityInput" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/jass.css" />
+</head>
+<body>
+<title>Weather Dashboard</title>
+<nav>Weather Dashboard</nav>
 
-            <select name="state-menu" id="state-menu" class="states-menu">
-              <option>Please select a State</option>
-            </select>
-            <button id="search-btn" class="btn btn-info search-button">
-              Search
-            </button>
-            <button id="clear-btn" class="btn btn-danger search-button">
-              Clear History
-            </button>
-            <!-- list of cities -->
-            <container class="currentContainer"></container>
-            <!-- city name and date 
-            temp, wind, humidity, uv-->
-            <container class="forecastContainer"></container>
-            <!-- 5-Day Forecast
-            dates, icon
-        temp, wind, humidity -->
-          </form>
-    
-    </main>
-    
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+  <main>
+    <div class="search-bar" id="search-bar"></div>
+    <h2 class="search">Search For a City:</h2>
+    <form class="searchBtn" action="action_page.php">
+      <input type="text" id="cityInput" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+
+      <select name="state-barsearch-bar" id="state-barsearch-bar" class="states-barsearch-bar">
+        <option>Please select a State</option>
+      </select>
+      <button id="search-btn" class="btn btn-info search-button">
+        Search
+      </button>
+      <button id="clear-btn" class="btn btn-danger search-button">
+        Clear History
+      </button>
+      <!-- <div class="stored-cities" id="stored-cities"></div> -->
+      </div>
+      <div class="saved-cities"></div>
+      <div class="weather-display">
+        <div id="current-container" class="current-container"></div>
+        <div id="forecast-container" class="forecast-container"></div>
+      </div>
+  </main>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>

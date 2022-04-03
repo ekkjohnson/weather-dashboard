@@ -11,7 +11,7 @@
 
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
-var city;
+// var city;
 
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
@@ -24,23 +24,23 @@ var history = document.getElementById("history");
 //display weather 
 
 //call
-function getAPI()
-var requestURL= "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={APIkey}";
+// function getAPI()
+// var requestURL= "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={APIkey}";
 
-fetch(requestURL)
-.then(function(response){
-    return response.json();
-})
-.then(function(data){
-    console.log(data)
-})
-getAPI();
+// fetch(requestURL)
+// .then(function(response){
+//     return response.json();
+// })
+// .then(function(data){
+//     console.log(data)
+// })
+// getAPI();
 
 function getCityCoordinates (city) { 
-    var cityCoordihates = 'https://api.openweathermap.org/geo/1.0/direct?q='
+    var cityCoordinates = 'https://api.openweathermap.org/geo/1.0/direct?q='
     var rest = "&limit=1&appid="
  
-    fetch(cityCoordihates + city + rest + APIkey)
+    fetch(cityCoordinates + city + rest + APIkey)
     .then(function(response){
         response.json()
         .then(function(data) {
@@ -73,27 +73,27 @@ var displayWeather=function(weather, citySearch){
 }
 
 
-var currentDay=document.createElement("span")
-currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
-citySearch.appendChild(currentDay);
+// var currentDay=document.createElement("span")
+// currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
+// citySearch.appendChild(currentDay);
 
-function currentForecast() {
-    removeAllChildNodes(currentWeather);
-    removeAllChildNodes(forecast)
-    var iconUrl = `http://openweathermap.org/img/wn/${forecast[0].weather[0].icon}@2x.png`;
-    var Icon;
-    fetch(iconUrl).then(function (res) {
-      Icon = res.url;
-      return Icon;
-    });
-    var card = document.createElement("div");
-    currentContainer.appendChild(card);
-    card.setAttribute("class", "currentWeatherCard");
-    var city = document.createElement("h2");
-    var date = document.createElement("h2");
-    var icon = document.createElement("img");
-    var temp = document.createElement("h2");
-    var wind = document.createElement("h2");
-    var humidity = document.createElement("h2");
-    var UV= document.createElement("h2");
-}
+// function currentForecast() {
+//     removeAllChildNodes(currentWeather);
+//     removeAllChildNodes(forecast)
+//     var iconUrl = `http://openweathermap.org/img/wn/${forecast[0].weather[0].icon}@2x.png`;
+//     var Icon;
+//     fetch(iconUrl).then(function (res) {
+//       Icon = res.url;
+//       return Icon;
+//     });
+//     var card = document.createElement("div");
+//     currentContainer.appendChild(card);
+//     card.setAttribute("class", "currentWeatherCard");
+//     var city = document.createElement("h2");
+//     var date = document.createElement("h2");
+//     var icon = document.createElement("img");
+//     var temp = document.createElement("h2");
+//     var wind = document.createElement("h2");
+//     var humidity = document.createElement("h2");
+//     var UV= document.createElement("h2");
+// }

@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-     rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-     <link/>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
     <link rel="stylesheet" href="./assets/css/style.css"/>
     <link rel="stylesheet" href="./assets/css/jass.css"/>
@@ -16,10 +19,21 @@
   <nav>Weather Dashboard</nav>
   <body>
     <main>
-        <h2>Search For a City:</h2>
+      <div class="search-menu" id="search-menu"></div>
+        <h2 class="search">Search For a City:</h2>
         <form class="searchBtn" action="action_page.php">
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" id="cityInput" placeholder="Search.." name="search">
             <button type="submit"><i class="fa fa-search"></i></button>
+
+            <select name="state-menu" id="state-menu" class="states-menu">
+              <option>Please select a State</option>
+            </select>
+            <button id="search-btn" class="btn btn-info search-button">
+              Search
+            </button>
+            <button id="clear-btn" class="btn btn-danger search-button">
+              Clear History
+            </button>
             <!-- list of cities -->
             <container class="currentContainer"></container>
             <!-- city name and date 
@@ -32,9 +46,8 @@
     
     </main>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -10,92 +10,71 @@
 //search history
 
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-const APIkey = "c9a9ed03a355403f4cb9a36e931c0b4a";
+const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
 var city;
-var lonLat = []
+
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeather = document.getElementById("currentContainer")
 var forecast = document.getElementById("forecastContainer")
 var history = document.getElementById("history");
-var apiKey = "844421298d794574c100e3409cee0499"
-var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
-let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-console.log(searchHistory);
+
 
 
 //display weather 
 
 //call
-function getCityWeather() {
-    var cityFinderUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},US&limit=1&appid=${APIKey}`;
-    fetch(cityFinderUrl).then(function (res) {
-      if (res.status !== 200) {
-        console.log("fetch found nothing!");
-        return;
-      } else {
-        res.json().then(function (data) {
-          lat_lon.push(data[0].lat.toFixed(2));
-          lat_lon.push(data[0].lon.toFixed(2));
-          var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat_lon[0]}&lon=${lat_lon[1]}&units=imperial&exclude=hourly,minutely&appid=${APIKey}`;
-          fetch(weatherUrl)
-            .then(function (res) {
-              if (res.status !== 200) {
-                console.log("fetch found nothing!");
-                return;
-              }
-              res.json().then(function (data) {
-                for (let i = 0; i < 6; i++) {
-                  forecast.push(data.daily[i]);
-                }
-                currentWeather();
-              });
-            })
-            .catch(function (err) {
-              console.error(err);
-            });
-        });
-      }
-    });
-}
-var formSumbit= function(event){
-    event.preventDefault();
-    var city = cityInput.value.trim();
-    if(city){
-        getcurrentWeather(city);
-        getforecast(city);
-        cities.unshift({city});
-        cityInput.value = "";
-    } else{
-        alert("Please enter a City");
-    }
-    saveSearch();
-    pastSearch(city);
-}
+function getAPI()
+var requestURL= "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={APIkey}";
 
-var saveSearch = function(){
-    localStorage.setItem("cities", JSON.stringify(cities));
-};
+fetch(requestURL)
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data)
+})
+getAPI();
 
-var getcurrentWeather = function(city){
-    
-
-    fetch(apiURL)
+function getCityCoordinates (city) { 
+    var cityCoordihates = 'https://api.openweathermap.org/geo/1.0/direct?q='
+    var rest = "&limit=1&appid="
+ 
+    fetch(cityCoordihates + city + rest + APIkey)
     .then(function(response){
-        response.json().then(function(data){
-            displayWeather(data, city);
-        });
-    });
-};
+        response.json()
+        .then(function(data) {
+            getWeather(data[0].lon,data[0].lat)
+            forecast(data[0].lon,data[0].lat)
+        })
+    })
+ 
+ }
+ 
+ function getWeather(lon, lat) {
+     var weather = 'https://api.openweathermap.org/data/2.5/onecall?'
+     var getLat = "lat=" + lat
+     var getLon = "&lon=" + lon
+     var rest = "&units=imperial&limit=1&appid="
+ 
+     fetch(weather + getLat + getLon + rest + APIkey)
+    .then(function(response){
+        response.json()
+        .then(function(data) {
+            console.log(data)
+        })
+    })
+ }
 var displayWeather=function(weather, citySearch){
     currentWeather.textContent="";
     cityInput.textContent=citySearch;
-    // console.log(weather);
+    console.log(weather);
 
 }
 
+
 var currentDay=document.createElement("span")
-currentDay.textContent="("+ moment(weather.dt.value).format ("MMM D, YYYY") + ") ";
+currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
 citySearch.appendChild(currentDay);
 
 function currentForecast() {

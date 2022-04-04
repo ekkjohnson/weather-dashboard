@@ -81,7 +81,7 @@ searchBtn.addEventListener("click", function(e){
 
 // var currentDay=document.createElement("span")
 // currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
-citySearch.appendChild(currentDay);
+// citySearch.appendChild(currentDay);
 
 function currentForecast(current) {
 
@@ -107,3 +107,26 @@ function currentForecast(current) {
     // var humidity = document.createElement("h2");
     // var UV= document.createElement("h2");
 }
+card.appendChild(date);
+  date.textContent = currentDay;
+  card.appendChild(iconImg);
+  iconImg.setAttribute("src", iconUrl);
+  card.appendChild(temp);
+  temp.textContent = `Temperature: ${forecast[0].temp.day}°F`;
+  card.appendChild(wind);
+  wind.textContent = `Wind: ${forecast[0].wind_speed} MPH`;
+  card.appendChild(humidity);
+  humidity.textContent = `Humidity: ${forecast[0].humidity}`;
+  card.appendChild(uvIndex);
+  uvIndex.textContent = `UV Index: ${forecast[0].uvi}`;
+  if (forecast[0].uvi <= 2) {
+    uvIndex.setAttribute("class", "low");
+  } else if (forecast[0].uvi <= 5) {
+    uvIndex.setAttribute("class", "moderate");
+  } else if (forecast[0].uvi <= 7) {
+    uvIndex.setAttribute("class", "high");
+  } else if (forecast[0].uvi <= 10) {
+    uvIndex.setAttribute("class", "very-high");
+  } else if (forecast[0].uvi > 11) {
+    uvIndex.setAttribute("class", "extreme");
+  }

@@ -1,7 +1,7 @@
 .search-menu {
     width: 20vw;
     height: 100vh;
-    background-color: var(--oxfordBlue);
+    background-color: blue;
     display: flex;
     flex-direction: column;
     padding: 2%;

@@ -8,36 +8,41 @@
 //search form
 //api with cities and weather
 //search history
-
+// var city;
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
-// var city;
 
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeather = document.getElementById("currentContainer")
 var forecast = document.getElementById("forecastContainer")
 var history = document.getElementById("history");
+var weather = 'https://api.openweathermap.org/data/2.5/onecall?'
+var getLat = "lat=" + lat
+var getLon = "&lon=" + lon
+var rest = "&units=imperial&limit=1&appid="
 
 
+// display weather 
 
-//display weather 
+call
+function getAPI()
+var requestURL= `${weather}lat=${getLat}&lon=${getLon}&exclude={part}&appid=${APIkey}`;
 
-//call
-// function getAPI()
-// var requestURL= "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={APIkey}";
-
-// fetch(requestURL)
-// .then(function(response){
-//     return response.json();
-// })
-// .then(function(data){
-//     console.log(data)
-// })
-// getAPI();
-
+fetch(requestURL)
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data)
+})
+getAPI();
+searchBtn.addEventListener("click", function(){
+    getCityCoordinates(cityInput)
+    getWeather(cityCoordinates)
+})
 function getCityCoordinates (city) { 
-    var cityCoordinates = 'https://api.openweathermap.org/geo/1.0/direct?q='
+    var cityCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}`
     var rest = "&limit=1&appid="
  
     fetch(cityCoordinates + city + rest + APIkey)
@@ -52,10 +57,7 @@ function getCityCoordinates (city) {
  }
  
  function getWeather(lon, lat) {
-     var weather = 'https://api.openweathermap.org/data/2.5/onecall?'
-     var getLat = "lat=" + lat
-     var getLon = "&lon=" + lon
-     var rest = "&units=imperial&limit=1&appid="
+   
  
      fetch(weather + getLat + getLon + rest + APIkey)
     .then(function(response){
@@ -65,6 +67,8 @@ function getCityCoordinates (city) {
         })
     })
  }
+
+
 var displayWeather=function(weather, citySearch){
     currentWeather.textContent="";
     cityInput.textContent=citySearch;

@@ -11,7 +11,7 @@
 // var city;
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
-
+var currentDay = moment().format("dddd, MMMM Do YYYY");
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeatherEL = document.getElementById("current-container")
@@ -21,7 +21,7 @@ var weather = 'https://api.openweathermap.org/data/2.5/onecall?'
 
 var rest = "&units=imperial&limit=1&appid="
 var displayWeather=function(weather, citySearch){
-    currentWeather.textContent="";
+    currentWeatherEL.textContent="";
     cityInput.textContent=citySearch;
     console.log(weather);
 
@@ -72,12 +72,14 @@ searchBtn.addEventListener("click", function(e){
             uvi: data.current.uvi
         }
         console.log( currentWeather)
-      
-        currentForecast(currentWeather)
-        // weatherData={data}
-    })
- }
-
+        res.json().then(function (data) {
+            for (let i = 0; i < 6; i++) {
+              forecast.push(data.daily[i]);
+            }
+            currentForecast();
+          });
+        })
+       
 
 // var currentDay=document.createElement("span")
 // currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
@@ -87,46 +89,59 @@ function currentForecast(current) {
 
     // removeAllChildNodes(currentWeather);
     // removeAllChildNodes(forecast)
-    // var iconUrl = `http://openweathermap.org/img/wn/${forecast[0].weather[0].icon}@2x.png`;
-    // var Icon;
-    // fetch(iconUrl).then(function (res) {
-    //   Icon = res.url;
-    //   return Icon;
-    // });
-    // var card = document.createElement("div");
-    // currentContainer.appendChild(card);
-    // card.setAttribute("class", "currentWeatherCard");
-    // var cityEl = document.createElement("h2");
-
-    // var date = document.createElement("h2");
-    // var icon = document.createElement("img");
+    var iconCode = cityWeatherResponse.weather[0].icon;
+    var iconURL = `https://openweathermap.org/img/w/${iconCode}.png`;
+    fetch(iconURL).then(function (res) {
+      icon = res.url;
+      return icon;
+    });
+    ;
+    var cityEl = document.createElement("h2");
+    cityEl.textContent = current.city; 
+    currentWeatherEL.appendChild(cityEl)
+    var date = document.createElement("h2");
+    var date = currentDay; 
+    currentWeatherEL.appendChild(date)
+    var icon = document.createElement("img");
+   icon.textContent = current.icon; 
+    currentWeatherEL.appendChild(icon)
     var tempEl = document.createElement("h2");
     tempEl.textContent = current.temp; 
     currentWeatherEL.appendChild(tempEl)
-    // var wind = document.createElement("h2");
-    // var humidity = document.createElement("h2");
-    // var UV= document.createElement("h2");
+    var windEl = document.createElement("h2");
+    windEl.textContent = current.wind; 
+    currentWeatherEL.appendChild(windEl)
+    var humidityEl = document.createElement("h2");
+    humidityEl.textContent = current.humidity; 
+    currentWeatherEL.appendChild(humidityEl)
+    var uviEl = document.createElement("h2");
+    uviEl.textContent = current.uvi; 
+    currentWeatherEL.appendChild(uviEl)
+    
 }
+var card = document.createElement("div");
+    currentContainer.appendChild(card);
+    card.setAttribute("class", "currentWeatherCard")
 card.appendChild(date);
   date.textContent = currentDay;
   card.appendChild(iconImg);
   iconImg.setAttribute("src", iconUrl);
   card.appendChild(temp);
-  temp.textContent = `Temperature: ${forecast[0].temp.day}°F`;
+  temp.textContent = `Temperature: ${currentWeatherEL[0].temp.day}°F`;
   card.appendChild(wind);
-  wind.textContent = `Wind: ${forecast[0].wind_speed} MPH`;
+  wind.textContent = `Wind: ${currentWeatherEL[0].wind_speed} MPH`;
   card.appendChild(humidity);
-  humidity.textContent = `Humidity: ${forecast[0].humidity}`;
+  humidity.textContent = `Humidity: ${currentWeatherEL[0].humidity}`;
   card.appendChild(uvIndex);
-  uvIndex.textContent = `UV Index: ${forecast[0].uvi}`;
-  if (forecast[0].uvi <= 2) {
+  uvIndex.textContent = `UV Index: ${currentWeatherEL[0].uvi}`;
+  if (currentWeatherEL[0].uvi <= 2) {
     uvIndex.setAttribute("class", "low");
-  } else if (forecast[0].uvi <= 5) {
+  } else if (currentWeatherEL[0].uvi <= 5) {
     uvIndex.setAttribute("class", "moderate");
-  } else if (forecast[0].uvi <= 7) {
+  } else if (currentWeatherEL[0].uvi <= 7) {
     uvIndex.setAttribute("class", "high");
-  } else if (forecast[0].uvi <= 10) {
+  } else if (currentWeatherEL[0].uvi <= 10) {
     uvIndex.setAttribute("class", "very-high");
-  } else if (forecast[0].uvi > 11) {
+  } else if (currentWeatherEL[0].uvi > 11) {
     uvIndex.setAttribute("class", "extreme");
-  }
+  }}

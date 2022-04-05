@@ -21,7 +21,7 @@ var weather = 'https://api.openweathermap.org/data/2.5/onecall?'
 
 var rest = "&units=imperial&limit=1&appid="
 var displayWeather=function(weather, citySearch){
-    currentWeather.textContent="";
+    currentWeatherEL.textContent="";
     cityInput.textContent=citySearch;
     console.log(weather);
 
@@ -68,7 +68,7 @@ searchBtn.addEventListener("click", function(e){
         let currentWeather = {
             temp: data.current.temp,
             humidity:  data.current.humidity, 
-            wind: data.current.wind,
+            wind: data.current.wind_speed,
             uvi: data.current.uvi
         }
         console.log( currentWeather)
@@ -81,7 +81,7 @@ searchBtn.addEventListener("click", function(e){
 
 // var currentDay=document.createElement("span")
 // currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
-citySearch.appendChild(currentDay);
+// citySearch.appendChild(currentDay);
 
 function currentForecast(current) {
 
@@ -103,6 +103,15 @@ function currentForecast(current) {
     var tempEl = document.createElement("h2");
     tempEl.textContent = current.temp; 
     currentWeatherEL.appendChild(tempEl)
+    var humidityEl = document.createElement("h2");
+    humidityEl.textContent = current.humidity; 
+    currentWeatherEL.appendChild(humidityEl)
+    var uviEl = document.createElement("h2");
+    uviEl.textContent = current.uvi; 
+    currentWeatherEL.appendChild(uviEl)
+    var windEl = document.createElement("h2");
+    windEl.textContent = current.wind; 
+    currentWeatherEL.appendChild(windEl)
     // var wind = document.createElement("h2");
     // var humidity = document.createElement("h2");
     // var UV= document.createElement("h2");

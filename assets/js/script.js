@@ -11,7 +11,7 @@
 // var city;
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
-
+// var currentDate = moment.unix(cityInfo.date).format("MM/DD/YYYY");
 var cityInput = document.getElementById("cityInput");
 var searchBtn = document.getElementById("searchBtn");
 var currentWeatherEL = document.getElementById("current-container")
@@ -110,32 +110,28 @@ function currentForecast(current) {
 }
 function displayForecastData (data) {
     // console.log(data.daily)
-     card2.innerHTML="";
-     for (var i = 1; i < 6; i++) {
+    for (let i = 1; i < 6; i++) {
+        var cityInfo = {
+            date: futureResponse.daily[i].dt,
+            icon: futureResponse.daily[i].weather[0].icon,
+            temp: futureResponse.daily[i].temp.day,
+            humidity: futureResponse.daily[i].humidity
+
+            
+        }
+        var tempEl = document.createElement("h2");
+    tempEl.textContent = data.daily[i].temp; 
+    ForecastWeatherEL.appendChild(tempEl)
+    var humidityEl = document.createElement("h2");
+    humidityEl.textContent = data.daily[i].humidity; 
+    ForecastWeatherEL.appendChild(humidityEl)
+    var uviEl = document.createElement("h2");
+    uviEl.textContent = data.daily[i].uvi; 
+    ForecastWeatherEL.appendChild(uviEl)
+    var windEl = document.createElement("h2");
+    windEl.textContent = data.daily[i].wind; 
+    ForecastWeatherEL.appendChild(windEl)
+
          
- 
-         var imageIcon= document.createElement("img")
-         var getIcon= `https://openweathermap.org/img/wn/${data.daily[i].weather[i].icon}@2x.png`;
-         imageIcon.setAttribute("src",getIcon)
-         imageIcon.appendChild(imageIcon)
- 
-         var container= document.createElement("div")
-         container.classList.add("card-body2")
-         container.classList.add("col-2")
-         container.setAttribute("id","forecastBody2")
-         var temp= document.createElement("h5")
-         temp.textContent="temp: " + data.daily[i].temp
-         container.appendChild(temp)
-         card2.appendChild(container)
-         var wind= document.createElement("h5")
-         wind.textContent="wind: " + data.daily[i].wind
-         container.appendChild(wind)
-         card2.appendChild(container)
-         
-         var humidity= document.createElement("h5")
-         humidity.textContent="humidity: " + data.daily[i].humidity
-         container.appendChild(humidity)
-         card2.appendChild(container)
- 
      }
     }

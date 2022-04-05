@@ -32,7 +32,16 @@ function currentWeather(city) {
         //gets icons
         var iconCode = cityWeather.weather[0].icon;
         var iconURL = `https://openweathermap.org/img/w/${iconCode}.png`;
+        var selectCity = $(`
+        <h2 id="selectCity">
+            ${cityWeather.name} ${day} <img src="${iconURL}" alt="${cityWeather.weather[0].description}" />
+        </h2>
+        <p>Temperature: ${cityWeather.main.temp} °F</p>
+        <p>Humidity: ${cityWeather.main.humidity}\%</p>
+        <p>Wind: ${cityWeather.wind.speed} MPH</p>
+    `);
 
+    $("#cityInfo").append(selectCity);
         
     })
 }

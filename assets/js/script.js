@@ -27,7 +27,7 @@ var displayWeather=function(weather, citySearch){
 
 }
 
-// display weather 
+// call lon and lat
 function getCityCoordinates (city) { 
     var cityCoordinates = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIkey}`
     
@@ -45,8 +45,8 @@ function getCityCoordinates (city) {
  
  }
 
-//call
 
+//click event
 searchBtn.addEventListener("click", function(e){
     e.preventDefault();
     var city= cityInput.value.trim()
@@ -55,7 +55,7 @@ searchBtn.addEventListener("click", function(e){
     cityInput.value=""
 })
 
-
+//use lon and lat to call weather api
  function getWeather(lon, lat) {
     var requestURL= `${weather}lat=${lat}&lon=${lon}&appid=${APIkey}`;
 
@@ -93,13 +93,7 @@ function currentForecast(current) {
     //   Icon = res.url;
     //   return Icon;
     // });
-    // var card = document.createElement("div");
-    // currentContainer.appendChild(card);
-    // card.setAttribute("class", "currentWeatherCard");
-    // var cityEl = document.createElement("h2");
-
-    // var date = document.createElement("h2");
-    // var icon = document.createElement("img");
+//variables to display
     var tempEl = document.createElement("h2");
     tempEl.textContent = current.temp; 
     currentWeatherEL.appendChild(tempEl)
@@ -112,7 +106,36 @@ function currentForecast(current) {
     var windEl = document.createElement("h2");
     windEl.textContent = current.wind; 
     currentWeatherEL.appendChild(windEl)
-    // var wind = document.createElement("h2");
-    // var humidity = document.createElement("h2");
-    // var UV= document.createElement("h2");
+    
 }
+function displayForecastData (data) {
+    // console.log(data.daily)
+     card2.innerHTML="";
+     for (var i = 1; i < 6; i++) {
+         
+ 
+         var imageIcon= document.createElement("img")
+         var getIcon= `https://openweathermap.org/img/wn/${data.daily[i].weather[i].icon}@2x.png`;
+         imageIcon.setAttribute("src",getIcon)
+         imageIcon.appendChild(imageIcon)
+ 
+         var container= document.createElement("div")
+         container.classList.add("card-body2")
+         container.classList.add("col-2")
+         container.setAttribute("id","forecastBody2")
+         var temp= document.createElement("h5")
+         temp.textContent="temp: " + data.daily[i].temp
+         container.appendChild(temp)
+         card2.appendChild(container)
+         var wind= document.createElement("h5")
+         wind.textContent="wind: " + data.daily[i].wind
+         container.appendChild(wind)
+         card2.appendChild(container)
+         
+         var humidity= document.createElement("h5")
+         humidity.textContent="humidity: " + data.daily[i].humidity
+         container.appendChild(humidity)
+         card2.appendChild(container)
+ 
+     }
+    }

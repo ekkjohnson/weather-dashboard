@@ -37,3 +37,7 @@ h1 {
   select {
     margin-top: 4%;
   }
+  #uvIndexColor,
+li {
+    color: #4D4F53;
+}

@@ -10,6 +10,7 @@
 //search history
 // var city;
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+
 const APIkey = "371075399ab3c5eb96abdb927a36cf0f";
 var currentDay = moment().format("dddd, MMMM Do YYYY");
 var cityInput = document.getElementById("cityInput");
@@ -71,77 +72,49 @@ searchBtn.addEventListener("click", function(e){
             wind: data.current.wind,
             uvi: data.current.uvi
         }
-        console.log( currentWeather)
-        res.json().then(function (data) {
-            for (let i = 0; i < 6; i++) {
-              forecast.push(data.daily[i]);
-            }
+        console.log( currentWeather);
+    localStorage.setItem("city input",currentWeather);
+    localStorage.getItem(currentWeather)
             currentForecast();
           });
-        })
-       
-
-// var currentDay=document.createElement("span")
-// currentDay.textContent="("+ moment(currentWeather.dt.value).format ("MMM D, YYYY") + ") ";
-// citySearch.appendChild(currentDay);
-
-function currentForecast(current) {
-
-    // removeAllChildNodes(currentWeather);
-    // removeAllChildNodes(forecast)
-    var iconCode = cityWeatherResponse.weather[0].icon;
-    var iconURL = `https://openweathermap.org/img/w/${iconCode}.png`;
-    fetch(iconURL).then(function (res) {
-      icon = res.url;
-      return icon;
-    });
-    ;
-    var cityEl = document.createElement("h2");
-    cityEl.textContent = current.city; 
-    currentWeatherEL.appendChild(cityEl)
-    var date = document.createElement("h2");
-    var date = currentDay; 
-    currentWeatherEL.appendChild(date)
-    var icon = document.createElement("img");
-   icon.textContent = current.icon; 
-    currentWeatherEL.appendChild(icon)
-    var tempEl = document.createElement("h2");
-    tempEl.textContent = current.temp; 
-    currentWeatherEL.appendChild(tempEl)
-    var windEl = document.createElement("h2");
-    windEl.textContent = current.wind; 
-    currentWeatherEL.appendChild(windEl)
-    var humidityEl = document.createElement("h2");
-    humidityEl.textContent = current.humidity; 
-    currentWeatherEL.appendChild(humidityEl)
-    var uviEl = document.createElement("h2");
-    uviEl.textContent = current.uvi; 
-    currentWeatherEL.appendChild(uviEl)
-    
-}
-var card = document.createElement("div");
-    currentContainer.appendChild(card);
-    card.setAttribute("class", "currentWeatherCard")
-card.appendChild(date);
-  date.textContent = currentDay;
-  card.appendChild(iconImg);
-  iconImg.setAttribute("src", iconUrl);
-  card.appendChild(temp);
-  temp.textContent = `Temperature: ${currentWeatherEL[0].temp.day}°F`;
-  card.appendChild(wind);
-  wind.textContent = `Wind: ${currentWeatherEL[0].wind_speed} MPH`;
-  card.appendChild(humidity);
-  humidity.textContent = `Humidity: ${currentWeatherEL[0].humidity}`;
-  card.appendChild(uvIndex);
-  uvIndex.textContent = `UV Index: ${currentWeatherEL[0].uvi}`;
-  if (currentWeatherEL[0].uvi <= 2) {
-    uvIndex.setAttribute("class", "low");
-  } else if (currentWeatherEL[0].uvi <= 5) {
-    uvIndex.setAttribute("class", "moderate");
-  } else if (currentWeatherEL[0].uvi <= 7) {
-    uvIndex.setAttribute("class", "high");
-  } else if (currentWeatherEL[0].uvi <= 10) {
-    uvIndex.setAttribute("class", "very-high");
-  } else if (currentWeatherEL[0].uvi > 11) {
-    uvIndex.setAttribute("class", "extreme");
-  }}
+          function displayCurrentData (data) {
+            var currentTemp= document.createElement("h3")
+            currentTemp.textContent= "Temp: " + data.current.temp
+            card1.appendChild(currentTemp)
+            var currentWind= document.createElement("h3")
+            currentWind.textContent= "Wind Speed: " + data.current.wind_speed
+            card1.appendChild(currentWind)
+            var currentHumidity= document.createElement("h3")
+            currentHumidity.textContent= "Humidity: " + data.current.humidity
+            card1.appendChild(currentHumidity)
+            var uvIndex= document.createElement("h3")
+            uvIndex.textContent="UV Index: " + data.current.uvi
+            card1.appendChild(uvIndex)
+        
+            
+        }
+        
+        function displayForecastData (data) {
+            console.log(data.daily)
+            card2.innerHTML="";
+            for (var i = 1; i < 6; i++) {
+                var container= document.createElement("div")
+                container.classList.add("card-body2")
+                container.classList.add("col-2")
+                container.setAttribute("id","forecastBody2")
+                var temp= document.createElement("h5")
+                temp.textContent="Temp: " + data.daily[i].temp.day
+                container.appendChild(temp)
+                card2.appendChild(container)
+                var wind= document.createElement("h5")
+                wind.textContent="Wind Speed: " + data.daily[i].wind_speed
+                container.appendChild(wind)
+                card2.appendChild(container)
+                var humidity= document.createElement("h5")
+                humidity.textContent="Humidity: " + data.daily[i].humidity
+                container.appendChild(humidity)
+                card2.appendChild(container)
+                
+            }
+        }
+    }

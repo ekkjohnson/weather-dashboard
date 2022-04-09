@@ -18,8 +18,8 @@ var searchButton= document.getElementById('search-btn')
 var searchList= document.getElementById('searchHistory')
 var card2= document.getElementById('card2')
 
-//array to push searched cities into- I realized I name two values searchHistory and easily change this to search Mistory
-let searchMistory = [];
+
+let searchHistory = [];
 
 //event listener function calling getCoordinates from the city
 searchButton.addEventListener('click', function(event) {
@@ -27,29 +27,29 @@ searchButton.addEventListener('click', function(event) {
     event.preventDefault()
     getCoordinates(searchInput.value)
     
-    //Again, my button variable was renamed butto for button without the last letter. This stores the searched cities as a button
-    var butto = document.createElement("button")
-    butto.textContent= searchInput.value
+    // This stores the searched cities as a button
+    var button = document.createElement("button")
+    button.textContent= searchInput.value
     
-    //adding search history buttons to list element
-    searchList.append(butto)
+    //adding search history buttonns to list element
+    searchList.append(button)
     
     //event listener function to add searched cities to local storage
-    butto.addEventListener('click', function (event) {
+    button.addEventListener('click', function (event) {
         card1.innerHTML="";
         event.preventDefault()
-        getCoordinates(butto.textContent)
-        displayCityName(butto.textContent)
+        getCoordinates(button.textContent)
+        displayCityName(button.textContent)
     })
-    searchMistory.push(searchInput.value)
-        for (var i = 0; i < searchMistory.length; i++) {
-            localStorage.setItem("cities",searchMistory)
+    searchHistory.push(searchInput.value)
+        for (var i = 0; i < searchHistory.length; i++) {
+            localStorage.setItem("cities",searchHistory)
         }
     })
 
     displayCityName(searchInput.value)
 
-    for (var i = 0; i < searchMistory.length; i++) {
+    for (var i = 0; i < searchHistory.length; i++) {
         localStorage.getItem("cities")
     }
     displayDate()
@@ -68,7 +68,7 @@ function forecast (lon, lat) {
     var getLon = "&lon=" + lon
     var rest = "&units=imperial&appid="
 
-    fetch(getForecastUrl + getLat + getLon + rest + apiKey)
+    fetch(getForecastUrl + getLat + getLon + rest +APIkey)
     .then(function(response){
         response.json()
         .then(function(data) {
@@ -82,7 +82,7 @@ function getCoordinates (city) {
     var apiCitySearch = 'https://api.openweathermap.org/geo/1.0/direct?q='
     var rest = "&limit=1&appid="
  
-    fetch(apiCitySearch + city + rest + apiKey)
+    fetch(apiCitySearch + city + rest +APIkey)
     .then(function(response){
         response.json()
         .then(function(data) {
@@ -99,7 +99,7 @@ function getCoordinates (city) {
      var getLon = "&lon=" + lon
      var rest = "&units=imperial&limit=1&appid="
  
-     fetch(getWeatherUrl + getLat + getLon + rest + apiKey)
+     fetch(getWeatherUrl + getLat + getLon + rest +APIkey)
     .then(function(response){
         response.json()
         .then(function(data) {
@@ -166,7 +166,7 @@ function forecast (lon, lat) {
     var getLon = "&lon=" + lon
     var rest = "&units=imperial&appid="
 
-    fetch(getForecastUrl + getLat + getLon + rest + apiKey)
+    fetch(getForecastUrl + getLat + getLon + rest + APIkey)
     .then(function(response){
         response.json()
         .then(function(data) {

@@ -1,9 +1,10 @@
 h1 {
     
-    background-color: blue;
+    background-color: cornflowerblue;
     display: flex;
     flex-direction: column;
     padding: 2%;
+    border: black solid 3px;
   }
   
   .weather-display {
@@ -18,26 +19,93 @@ h1 {
     padding: 2%;
   }
   
-  .current-card h2 {
-    font-size: 2rem;
-  }
-  
-  .forecast-container {
-    height: 50vh;
-    width: 75vw;
+  *{
+    text-transform: capitalize;
+}
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Oswald', sans-serif;
+}
+header{
+    background: cornflowerblue;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  
-  .search-btn {
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    padding: 3rem;
+    border: black solid 3px;
+}
+.container {
+    display: flex;
+    position: left;
+    background-color: white;
+    height: 50vh;
+    width: 33%;
+    margin-left: 0%;
+}
+h2 {
+    font-weight: bolder;
+}
+h3 {
+    text-align: center;
+    font-weight: bold;
+}
+h4 {
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;
+    padding-bottom: 4rem;
+    color: black;
+}
+h5 {
+    font-size: 17px;
+    color: black;
+    text-align: left;
+    padding:0;
+    margin-left:1rem;
+}
+button {
     width: 100%;
-    margin-top: 4%;
-  }
-  select {
-    margin-top: 4%;
-  }
-  #uvIndexColor,
-li {
-    color: #4D4F53;
+}
+.card1 {
+    border: black solid 3px;
+    padding: 3rem;
+    width: 65vw;
+    height:50vh;
+    background-color: aliceblue;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+.box {
+    width: 100vw;
+    height:50vh;
+    background-color: cornflowerblue;
+    display: block;
+    align-items: space-evenly;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    line-height: 3rem;;
+    border: black solid 3px;
+    text-align: center;
+}
+#forcastBody2 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    border: black solid 2px;
+    text-align: center;
+}
+img {
+    padding:0;
+    margin-left:-.5rem;
+}
+.card2 {
+   display: block;
+}
+.orange {
+    background-color: orange;
 }

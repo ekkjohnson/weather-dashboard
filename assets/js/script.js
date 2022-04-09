@@ -18,7 +18,7 @@ var searchButton= document.getElementById('search-btn')
 var searchList= document.getElementById('searchHistory')
 var card2= document.getElementById('card2')
 
-
+//array for search history
 let searchHistory = [];
 
 //event listener function calling getCoordinates from the city
@@ -46,14 +46,14 @@ searchButton.addEventListener('click', function(event) {
             localStorage.setItem("cities",searchHistory)
         }
     })
-
+//displays city name
     displayCityName(searchInput.value)
 
     for (var i = 0; i < searchHistory.length; i++) {
         localStorage.getItem("cities")
     }
     displayDate()
-    
+    //displays date
     function displayDate () {
         var showDate = document.createElement("h2")
         var currentDate = moment().format("MMMM Do YYYY");
@@ -92,7 +92,7 @@ function getCoordinates (city) {
     })
  }
  
- //this function uses the API url and concatenates the coordinates from the searched city through the promise functions
+ //uses coordinates from the searched city to put through the promise funciton
  function getWeather(lon, lat) {
      var getWeatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?'
      var getLat = "lat=" + lat
@@ -110,7 +110,7 @@ function getCoordinates (city) {
     })
  }
 
- //function creates and attachess the city input from the user to display the current city weather conditions being searched
+ //function creates and adds the city input from the user to display current weather
 function displayCityName(name) {
     var searchedCity = document.createElement("h2")
     searchedCity.textContent = name
@@ -121,6 +121,7 @@ function displayCityName(name) {
 function displayCurrentData (data) {
     console.log(data)
     var imageIcon= document.createElement("img")
+    //api for the icon
     var getIcon= `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
     imageIcon.setAttribute("src",getIcon)
     card1.appendChild(imageIcon)
@@ -137,7 +138,7 @@ function displayCurrentData (data) {
     var buttonDiv=document.createElement("div")
     var newButton= document.createElement("button")
     newButton.classList.add("btn")
-    //added an if function to help show the color of the uv index- because there is not an orange color in bootstrap, hence making the extra class and styling it in css
+    //added an if function to help show the color of the uv index- because there is not an orange color in bootstrap, so needed to add in my own css file
     newButton.classList.add("col-2")
     if(data.current.uvi < 2) {
     newButton.classList.add("btn-success")
@@ -152,14 +153,14 @@ function displayCurrentData (data) {
         else {newButton.classList.add("btn-danger")}
     newButton.textContent= data.current.uvi
     uvIndex.textContent="UV Index: "
-    //moved the appended divs to display the button at the bottom of the container
+    //display button at the bottom
     buttonDiv.classList.add("d-flex")
     buttonDiv.classList.add("justify-content-center")
     buttonDiv.appendChild(uvIndex)
     buttonDiv.appendChild(newButton)
     card1.appendChild(buttonDiv)
 }
-//this function uses the API url to get the data of a 7 day forecast but retrieving the coordinates of the inputed city by the user. It then has to pass the data through the promise functions in order to get the data once again
+//uses lat and long to get the future forecast
 function forecast (lon, lat) {
     var getForecastUrl = 'https://api.openweathermap.org/data/2.5/onecall?'
     var getLat = "lat=" + lat
@@ -174,7 +175,7 @@ function forecast (lon, lat) {
         })
     })
 }
-//this function displays the data of of the next 5 day forecats using the url the fetch function provides. The for loop provide parameters in what kind of data we would like displayed. Giving it a range of what days to select from the array. Elements and tags were created and appended within the function to display the selected conditions
+//this function displays the data of of the next 5 day forecats
 function displayForecastData (data) {
     console.log(data)
     card2.innerHTML="";

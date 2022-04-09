@@ -109,3 +109,53 @@ function getCoordinates (city) {
         })
     })
  }
+
+ //function creates and attachess the city input from the user to display the current city weather conditions being searched
+function displayCityName(name) {
+    var searchedCity = document.createElement("h2")
+    searchedCity.textContent = name
+    card1.appendChild(searchedCity)
+}
+
+//this function hold the dynamic variables in the card1 div displaying the compnents and weather conditions fur current day of any city searched
+function displayCurrentData (data) {
+    console.log(data)
+    var imageIcon= document.createElement("img")
+    var getIcon= `https://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+    imageIcon.setAttribute("src",getIcon)
+    card1.appendChild(imageIcon)
+    var currentTemp= document.createElement("h3")
+    currentTemp.textContent= "Temp: " + data.current.temp
+    card1.appendChild(currentTemp)
+    var currentWind= document.createElement("h3")
+    currentWind.textContent= "Wind Speed: " + data.current.wind_speed
+    card1.appendChild(currentWind)
+    var currentHumidity= document.createElement("h3")
+    currentHumidity.textContent= "Humidity: " + data.current.humidity
+    card1.appendChild(currentHumidity)
+    var uvIndex= document.createElement("h3")
+    var buttonDiv=document.createElement("div")
+    var newButton= document.createElement("button")
+    newButton.classList.add("btn")
+    //added an if function to help show the color of the uv index- because there is not an orange color in bootstrap, hence making the extra class and styling it in css
+    newButton.classList.add("col-2")
+    if(data.current.uvi < 2) {
+    newButton.classList.add("btn-success")
+    }
+    else if(data.current.uvi > 2 && data.current.uvi < 6 ) { 
+    newButton.classList.add("btn-warning")
+    }
+    else if(data.current.uvi > 6 && data.current.uvi < 7 ) { 
+        newButton.classList.add("btn")
+        newButton.classList.add("orange")
+        }
+        else {newButton.classList.add("btn-danger")}
+    newButton.textContent= data.current.uvi
+    uvIndex.textContent="UV Index: "
+    //moved the appended divs to display the button at the bottom of the container
+    buttonDiv.classList.add("d-flex")
+    buttonDiv.classList.add("justify-content-center")
+    buttonDiv.appendChild(uvIndex)
+    buttonDiv.appendChild(newButton)
+    card1.appendChild(buttonDiv)
+}

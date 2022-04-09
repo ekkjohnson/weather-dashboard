@@ -159,3 +159,53 @@ function displayCurrentData (data) {
     buttonDiv.appendChild(newButton)
     card1.appendChild(buttonDiv)
 }
+//this function uses the API url to get the data of a 7 day forecast but retrieving the coordinates of the inputed city by the user. It then has to pass the data through the promise functions in order to get the data once again
+function forecast (lon, lat) {
+    var getForecastUrl = 'https://api.openweathermap.org/data/2.5/onecall?'
+    var getLat = "lat=" + lat
+    var getLon = "&lon=" + lon
+    var rest = "&units=imperial&appid="
+
+    fetch(getForecastUrl + getLat + getLon + rest + apiKey)
+    .then(function(response){
+        response.json()
+        .then(function(data) {
+            displayForecastData(data)
+        })
+    })
+}
+//this function displays the data of of the next 5 day forecats using the url the fetch function provides. The for loop provide parameters in what kind of data we would like displayed. Giving it a range of what days to select from the array. Elements and tags were created and appended within the function to display the selected conditions
+function displayForecastData (data) {
+    console.log(data)
+    card2.innerHTML="";
+    for (var i = 1; i < 6; i++) {
+        var imageIcon= document.createElement("img")
+        var getIcon= `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png`;
+        imageIcon.setAttribute("src",getIcon)
+        //image icon toward the top to display weather conditions below
+        var container= document.createElement("div")
+        container.classList.add("card-body2")
+        container.classList.add("col-2")
+        container.setAttribute("id","forecastBody2")
+        container.appendChild(imageIcon)
+        var showDateData= document.createElement("h5")
+        var date = data.daily[i].dt
+        var reformatDate = moment(date, "X" ).format("l")
+        showDateData.textContent= "Date: " + reformatDate
+        container.appendChild(showDateData)
+        card2.appendChild(container)
+        console.log(reformatDate)
+        var temp= document.createElement("h5")
+        temp.textContent="Temp: " + data.daily[i].temp.day
+        container.appendChild(temp)
+        card2.appendChild(container)
+        var wind= document.createElement("h5")
+        wind.textContent="Wind Speed: " + data.daily[i].wind_speed
+        container.appendChild(wind)
+        card2.appendChild(container)
+        var humidity= document.createElement("h5")
+        humidity.textContent="Humidity: " + data.daily[i].humidity
+        container.appendChild(humidity)
+        card2.appendChild(container)
+    }
+}

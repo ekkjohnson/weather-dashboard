@@ -46,3 +46,34 @@ searchButton.addEventListener('click', function(event) {
             localStorage.setItem("cities",searchMistory)
         }
     })
+
+    displayCityName(searchInput.value)
+
+    for (var i = 0; i < searchMistory.length; i++) {
+        localStorage.getItem("cities")
+    }
+    displayDate()
+    
+    function displayDate () {
+        var showDate = document.createElement("h2")
+        var currentDate = moment().format("MMMM Do YYYY");
+        card1.appendChild(showDate)
+        showDate.textContent= currentDate
+    }
+
+ //function retrieves the coordinates needed from the API url going through the promises to display the data throught the called function at the bottom
+function forecast (lon, lat) {
+    var getForecastUrl = 'https://api.openweathermap.org/data/2.5/onecall?'
+    var getLat = "lat=" + lat
+    var getLon = "&lon=" + lon
+    var rest = "&units=imperial&appid="
+
+    fetch(getForecastUrl + getLat + getLon + rest + apiKey)
+    .then(function(response){
+        response.json()
+        .then(function(data) {
+            
+            displayForecastData(data)
+        })
+    })
+}

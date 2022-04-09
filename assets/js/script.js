@@ -77,3 +77,35 @@ function forecast (lon, lat) {
         })
     })
 }
+//this function provides the coordinates for retrieving current day weather and a 5 day forecast and also has both functions called at the bottom to place the retrieved coordinates in
+function getCoordinates (city) { 
+    var apiCitySearch = 'https://api.openweathermap.org/geo/1.0/direct?q='
+    var rest = "&limit=1&appid="
+ 
+    fetch(apiCitySearch + city + rest + apiKey)
+    .then(function(response){
+        response.json()
+        .then(function(data) {
+            getWeather(data[0].lon,data[0].lat)
+            forecast(data[0].lon,data[0].lat)
+        })
+    })
+ }
+ 
+ //this function uses the API url and concatenates the coordinates from the searched city through the promise functions
+ function getWeather(lon, lat) {
+     var getWeatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?'
+     var getLat = "lat=" + lat
+     var getLon = "&lon=" + lon
+     var rest = "&units=imperial&limit=1&appid="
+ 
+     fetch(getWeatherUrl + getLat + getLon + rest + apiKey)
+    .then(function(response){
+        response.json()
+        .then(function(data) {
+            console.log(data)
+            displayCurrentData(data)
+ 
+        })
+    })
+ }
